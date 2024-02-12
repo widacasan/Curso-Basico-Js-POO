@@ -60,14 +60,31 @@ class Course {
         name,
         clases =[],
     }){
-        this.name = name;
+        this._name = name; 
         this.clases = clases;
+    }
+
+    get name(){
+       return this._name;
+    }
+
+    set name(nuevoNombrecito){
+        if (nuevoNombrecito === "Curso Malo de Programacion"){
+            console.error("No actualizar el curso")
+        } else {
+            this._name = nuevoNombrecito;
+        }
+       
     }
 }
 
 const cursoProgramacionBasica = new Course({
     name: "Curso Gratis de Programacion Basica",
 });
+
+cursoProgramacionBasica.name 
+//"Curso Gratis de Programacion Basica"
+
 const cursoDefinitivoHTML = new Course({
     name: "Curso Definitivo de HTML y CSS",
 });
