@@ -1,182 +1,151 @@
-const william = {
-    name: 'William',
-    age: 26,
-    librosLeidos: [
-        'Este dolor no es mio',
-        'Metodo silva'
-    ],
-    agregarLibro(nuevoLibro){
-        this.librosLeidos.push(nuevoLibro)
-    }
-};
-
-function Student1(name,age,agregarLibro) {
-    this.name = name;
-    this.age = age;
-    this.agregarLibro = agregarLibro;
-};
-
-Student1.prototype.agregarLibro = function agregarLibro(nuevoLibro){
-    this.agregarLibro.push(nuevoLibro);
-};
-
-const daniel = new Student1(
-    'name',
-    26,
-    ['el poder del ahora', 'el principito', 'dora la exporadora']
-)
-
-//Prototipos con la sintaxis de clases
-
-class Student2 {
+function videoPlay(id) {
+    const urlSecreta = "https://platziultrasecretomasquelanasa.com/" + id;
+    console.log("Se está reproduciendo desde la url " + urlSecreta);
+  }
+  function videoStop(id) {
+    const urlSecreta = "https://platziultrasecretomasquelanasa.com/" + id;
+    console.log("Pausamos la url " + urlSecreta);
+  }
+  
+  export class PlatziClass {
     constructor({
-        age,
-        name,
-        librosLeidos = [],
-        email,
-    }){
-        this.name = name;
-        this.age = age;
-        this.email + email;
-        this.librosLeidos = librosLeidos;
+      name,
+      videoID,
+    }) {
+      this.name = name;
+      this.videoID = videoID;
     }
-m
-    agregarLibro(nuevoLibro) {
-        this.librosLeidos.push(nuevoLibro);
+  
+    reproducir() {
+      videoPlay(this.videoID);
     }
-}
-
-const miguelito = new Student2 ({
-    name: 'Miguel',
-    age: 26,
-    email: "Miguel@gmail.com"
-}
-)
-
-// Ventajas de la programacion orinentada a objetos
-
-class Course {
+    pausar() {
+      videoStop(this.videoID);
+    }
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  class Course {
     constructor({
-        name,
-        clases =[],
-    }){
-        this._name = name; 
-        this.clases = clases;
+      name,
+      classes = [],
+    }) {
+      this._name = name;
+      this.classes = classes;
     }
-
-    get name(){
-       return this._name;
+  
+    get name() {
+      return this._name;
     }
-
-    set name(nuevoNombrecito){
-        if (nuevoNombrecito === "Curso Malo de Programacion"){
-            console.error("No actualizar el curso")
-        } else {
-            this._name = nuevoNombrecito;
-        }
-       
+  
+    set name(nuevoNombrecito) {
+      if (nuevoNombrecito === "Curso Malito de Programación Básica") {
+        console.error("Web... no");
+      } else {
+        this._name = nuevoNombrecito; 
+      }
     }
-}
-
-const cursoProgramacionBasica = new Course({
-    name: "Curso Gratis de Programacion Basica",
-});
-
-cursoProgramacionBasica.name 
-//"Curso Gratis de Programacion Basica"
-
-const cursoDefinitivoHTML = new Course({
+  }
+  
+  const cursoProgBasica = new Course({
+    name: "Curso Gratis de Programación Básica",
+  });
+  
+  const cursoDefinitivoHTML = new Course({
     name: "Curso Definitivo de HTML y CSS",
-});
-const cursoPracticoHTML = new Course({
+  });
+  const cursoPracticoHTML = new Course({
     name: "Curso Practico de HTML y CSS",
-});
-
-
-class LearningPath {
+  });
+  
+  
+  class LearningPath {
     constructor({
-        name,
-        courses =[],
-    }){
-        this.name = name;
-        this.courses = courses;
+      name,
+      courses = [],
+    }) {
+      this.name = name;
+      this.courses = courses;
     }
-}
-const escuelaWeb = new LearningPath({
-    name: "Escuela de Desarrollo web",
+  }
+  
+  const escuelaWeb = new LearningPath({
+    name: "Escuela de Desarrollo Web",
     courses: [
-        cursoProgramacionBasica,
-        cursoDefinitivoHTML,
-        cursoPracticoHTML,
-
+      cursoProgBasica,
+      cursoDefinitivoHTML,
+      cursoPracticoHTML,
     ],
-
-});
-
-const escuelaData = new LearningPath({
+  });
+  
+  const escuelaData = new LearningPath({
     name: "Escuela de Data Science",
     courses: [
-        cursoProgramacionBasica,
-        "Curso DataBusinesss",
-        "Curso Dataviz",
-
+      cursoProgBasica,
+      "Curso DataBusiness",
+      "Curso Dataviz",
     ],
-
-});
-
-const escuelaVgs = new LearningPath({
-    name: "Escuela de Video juegos",
+  });
+  
+  const escuelaVgs = new LearningPath({
+    name: "Escuela de Vidweojuegos",
     courses: [
-        cursoProgramacionBasica,
-        "Curso de Unity",
-        "Curso de Unreal",
-
+      cursoProgBasica,
+      "Curso de Unity",
+      "Curso de Unreal",
     ],
-});
-
-
-class Student {
+  })
+  
+  class Student {
     constructor({
-        name,
-        email,
-        username,
-        twitter = undefined,
-        instagram = undefined,
-        facebook = undefined,
-        approvedCourses = [],
-        learningPaths = [],
-    }){
-        this.name = name;
-        this.email = email;
-        this.username = username;
-        this.socialMedia = {
-            twitter,
-            instagram,
-            facebook,
-        }
-       
-        this.approvedCourses  = approvedCourses;
-        this.learningPaths  = learningPaths;
+      name,
+      email,
+      username,
+      twitter = undefined,
+      instagram = undefined,
+      facebook = undefined,
+      approvedCourses = [],
+      learningPaths = [],
+    }) {
+      this.name = name;
+      this.email = email;
+      this.username = username;
+      this.socialMedia = {
+        twitter,
+        instagram,
+        facebook,
+      };
+      this.approvedCourses = approvedCourses;
+      this.learningPaths = learningPaths;
     }
-}
-
-const juan2 = new Student({
+  }
+  
+  const juan2 = new Student({
     name: "JuanDC",
     username: "juandc",
-    email: "juanito@gmail.com",
+    email: "juanito@juanito.com",
     twitter: "fjuandc",
     learningPaths: [
-        escuelaWeb,
-        escuelaVgs,
-      ],
-})
-const Miguelito2 = new Student({
-    name: "miguelDC",
-    username: "migueldc",
-    email: "jmiguel@gmail.com",
-    twitter: "fmigueldc",
+      escuelaWeb,
+      escuelaVgs,
+    ],
+  });
+  
+  const miguelito2 = new Student({
+    name: "Miguelito",
+    username: "migelitofeliz",
+    email: "miguelito@juanito.com",
+    instagram: "migelito_feliz",
     learningPaths: [
-        escuelaWeb,
-        escuelaData,
-      ],
-})
+      escuelaWeb,
+      escuelaData,
+    ],
+  });
