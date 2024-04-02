@@ -1,151 +1,108 @@
-function videoPlay(id) {
-    const urlSecreta = "https://platziultrasecretomasquelanasa.com/" + id;
-    console.log("Se está reproduciendo desde la url " + urlSecreta);
+function isObject(subject) {
+  return typeof subject == "object";
+}
+function isArray(subject) {
+  return Array.isArray(subject);
+}
+function deepCopy(subject) {
+  let copySubject;
+  const subjectIsObject = isObject(subject);
+  const subjectIsArray = isArray(subject);
+  if (subjectIsArray) {
+    copySubject = [];
+  } else if (subjectIsObject) {
+    copySubject = {};
+  } else {
+    return subject;
   }
-  function videoStop(id) {
-    const urlSecreta = "https://platziultrasecretomasquelanasa.com/" + id;
-    console.log("Pausamos la url " + urlSecreta);
-  }
-  
-  export class PlatziClass {
-    constructor({
-      name,
-      videoID,
-    }) {
-      this.name = name;
-      this.videoID = videoID;
-    }
-  
-    reproducir() {
-      videoPlay(this.videoID);
-    }
-    pausar() {
-      videoStop(this.videoID);
-    }
-  }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  class Course {
-    constructor({
-      name,
-      classes = [],
-    }) {
-      this._name = name;
-      this.classes = classes;
-    }
-  
-    get name() {
-      return this._name;
-    }
-  
-    set name(nuevoNombrecito) {
-      if (nuevoNombrecito === "Curso Malito de Programación Básica") {
-        console.error("Web... no");
+  for (key in subject) {
+    const keyIsObject = isObject(subject[key]);
+    if (keyIsObject) {
+      copySubject[key] = deepCopy(subject[key]);
+    } else {
+      if (subjectIsArray) {
+        copySubject.push(subject[key]);
       } else {
-        this._name = nuevoNombrecito; 
+        copySubject[key] = subject[key];
       }
     }
   }
-  
-  const cursoProgBasica = new Course({
-    name: "Curso Gratis de Programación Básica",
-  });
-  
-  const cursoDefinitivoHTML = new Course({
-    name: "Curso Definitivo de HTML y CSS",
-  });
-  const cursoPracticoHTML = new Course({
-    name: "Curso Practico de HTML y CSS",
-  });
-  
-  
-  class LearningPath {
-    constructor({
-      name,
-      courses = [],
-    }) {
-      this.name = name;
-      this.courses = courses;
+  return copySubject;
+}
+function SuperObject() {}
+SuperObject.isObject = function (subject) {
+  return typeof subject == "object";
+};
+SuperObject.deepCopy = function (subject) {
+  let copySubject;
+  const subjectIsObject = isObject(subject);
+  const subjectIsArray = isArray(subject);
+  if (subjectIsArray) {
+    copySubject = [];
+  } else if (subjectIsObject) {
+    copySubject = {};
+  } else {
+    return subject;
+  }
+  for (key in subject) {
+    const keyIsObject = isObject(subject[key]);
+    if (keyIsObject) {
+      copySubject[key] = deepCopy(subject[key]);
+    } else {
+      if (subjectIsArray) {
+        copySubject.push(subject[key]);
+      } else {
+        copySubject[key] = subject[key];
+      }
     }
   }
-  
-  const escuelaWeb = new LearningPath({
-    name: "Escuela de Desarrollo Web",
-    courses: [
-      cursoProgBasica,
-      cursoDefinitivoHTML,
-      cursoPracticoHTML,
-    ],
+  return copySubject;
+};
+function requiredParam(param) {
+  throw new Error(param + " es obligatorio");
+}
+function LearningPath({ name = requiredParam("name"), courses = [] }) {
+  this.name = name;
+  this.courses = courses;
+}
+function Student({
+  name = requiredParam("name"),
+  email = requiredParam("email"),
+  age,
+  twitter,
+  instagram,
+  facebook,
+  approvedCourses = [],
+  learningPaths = [],
+} = {}) {
+  this.name = name;
+  this.email = email;
+  this.age = age;
+  this.approvedCourses = approvedCourses;
+  this.socialMedia = { twitter, instagram, facebook };
+  const private = { _learningPaths: [] };
+  Object.defineProperty(this, "learningPaths", {
+    get() {
+      return private["_learningPaths"];
+    },
+    set(newLp) {
+      if (newLp instanceof LearningPath) {
+        private["_learningPaths"].push(newLp);
+      } else {
+        console.warn(
+          "Alguno de los LPs no es una instancia dell prototipo LearningPath"
+        );
+      }
+    },
   });
-  
-  const escuelaData = new LearningPath({
-    name: "Escuela de Data Science",
-    courses: [
-      cursoProgBasica,
-      "Curso DataBusiness",
-      "Curso Dataviz",
-    ],
-  });
-  
-  const escuelaVgs = new LearningPath({
-    name: "Escuela de Vidweojuegos",
-    courses: [
-      cursoProgBasica,
-      "Curso de Unity",
-      "Curso de Unreal",
-    ],
-  })
-  
-  class Student {
-    constructor({
-      name,
-      email,
-      username,
-      twitter = undefined,
-      instagram = undefined,
-      facebook = undefined,
-      approvedCourses = [],
-      learningPaths = [],
-    }) {
-      this.name = name;
-      this.email = email;
-      this.username = username;
-      this.socialMedia = {
-        twitter,
-        instagram,
-        facebook,
-      };
-      this.approvedCourses = approvedCourses;
-      this.learningPaths = learningPaths;
-    }
+  for (learningPathIndex in learningPaths) {
+    this.learningPaths = learningPaths[learningPathIndex];
   }
-  
-  const juan2 = new Student({
-    name: "JuanDC",
-    username: "juandc",
-    email: "juanito@juanito.com",
-    twitter: "fjuandc",
-    learningPaths: [
-      escuelaWeb,
-      escuelaVgs,
-    ],
-  });
-  
-  const miguelito2 = new Student({
-    name: "Miguelito",
-    username: "migelitofeliz",
-    email: "miguelito@juanito.com",
-    instagram: "migelito_feliz",
-    learningPaths: [
-      escuelaWeb,
-      escuelaData,
-    ],
-  });
+}
+const escuelaWeb = new LearningPath({ name: "Escuela de WebDev" });
+const escuelaData = new LearningPath({ name: "Escuela de Data Science" });
+const juan = new Student({
+  email: "juanito@frijoles.co",
+  name: "Juanito",
+  learningPaths: [escuelaWeb, escuelaData],
+});
